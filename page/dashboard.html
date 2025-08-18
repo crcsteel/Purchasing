@@ -6,8 +6,8 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
 	<title>Inventory Report</title>
-  <link rel="icon" type="image/png" href="../img/CRC_LogoEN.jpg">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="img/CRC_LogoEN.jpg">
+  <link rel="stylesheet" href="css/style.css">
 
 
 </head>
@@ -98,11 +98,15 @@
 
   <!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-	<script src="../script/script.js"></script>
-  	<script src="../script/Inventory.js"></script>
+	<script src="script/script.js"></script>
+  <script src="script/base.js"></script>
+  <script src="script/inventory.js"></script>
+  <script src="script/inventoryout.js"></script>
+  <script src="script/salesandbase.js"></script>
+  <script src="script/salesdaily.js"></script>
   <script>    
     // โหลด sidebar.html ก่อน
-    fetch('../page/sidebar.html')
+    fetch('page/sidebar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('sidebar').innerHTML = html;
