@@ -3,65 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
+  <!-- Icon & Fonts -->
+  <link rel="icon" href="img/CRC_LogoEN.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="img/CRC_LogoEN.jpg">
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Title -->
   <title>Purchase</title>
-  
-  <link rel="icon" type="image/png" href="img/CRC_LogoEN.jpg">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>	
-	<!-- SIDEBAR -->
-    <div id="sidebar"></div>
-	<!-- SIDEBAR -->
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <p>⏳ Loading sidebar...</p>
+  </div>
 
-	<!-- NAVBAR -->
-	<section id="content">
-		<!-- NAVBAR -->
-		<nav>
-			<form action="#">
-				<div class="form-group">
-					<h1 class="title">Sales And Base Report</h1>
-				</div>
-			</form>
-			<span class="divider"></span>
-			<div class="profile">
-				<img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="">
-			
-			</div>
-		</nav>
-		<!-- NAVBAR -->
+  <!-- CONTENT -->
+  <section id="content">
 
-		<!-- MAIN -->
-		<main>
-
-      <div class="data">
-      <div class="content-data">
-        <div class="head"><h3>เบทราคาเหล็กเส้น</h3></div>
-        <div id="base-rbdb-chart"></div>
+    <!-- NAVBAR -->
+    <nav>
+      <form action="#">
+        <div class="form-group">
+          <h1 class="title">Sales And Base Report</h1>
+        </div>
+      </form>
+      <span class="divider"></span>
+      <div class="profile">
+        <img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="Logo">
       </div>
-      </div>  
+      <!-- ปุ่ม toggle sidebar -->
+      <div class="toggle-sidebar"><i class='bx bx-menu'></i></div>
+    </nav>
+    <!-- NAVBAR -->
 
-		</main>
-		<!-- MAIN -->
-	</section>
-	<!-- NAVBAR -->
+    <!-- MAIN -->
+    <main>
+      <div class="data">
+        <div class="content-data">
+          <div class="head"><h3>เบทราคาเหล็กเส้น</h3></div>
+          <div id="base-rbdb-chart"></div>
+        </div>
+      </div>  
+    </main>
+    <!-- MAIN -->
+
+  </section>
+  <!-- CONTENT -->
 
   <!-- Scripts -->
-	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-	<script src="../script/script.js"></script>
-  <script src="../script/salesandbase.js"></script>
-  <script src="../script/base.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="script/script.js"></script>
+  <script src="script/base.js"></script>
+  <script src="script/inventory.js"></script>
+  <script src="script/inventoryout.js"></script>
+  <script src="script/salesandbase.js"></script>
+  <script src="script/salesdaily.js"></script>
+
   <script>    
-    // โหลด sidebar.html ก่อน
-    fetch('page/sidebar.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('sidebar').innerHTML = html;
-        initSidebar(); // เรียกฟังก์ชันตั้งค่า Sidebar หลังโหลดเสร็จ
-      })
-      .catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
+    document.addEventListener("DOMContentLoaded", () => {
+      // โหลด sidebar.html
+      fetch('page/sidebar.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('sidebar').innerHTML = html;
+          initSidebar(); // เรียกฟังก์ชันหลังโหลดเสร็จ
+        })
+        .catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
+    });
 
     function initSidebar() {
       const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
@@ -93,19 +106,21 @@
         allSideDivider.forEach(item => item.textContent = item.dataset.text);
       }
 
-      toggleSidebar.addEventListener('click', function () {
-        sidebar.classList.toggle('hide');
-        if (sidebar.classList.contains('hide')) {
-          allSideDivider.forEach(item => item.textContent = '-');
-          allDropdown.forEach(item => {
-            const a = item.parentElement.querySelector('a:first-child');
-            a.classList.remove('active');
-            item.classList.remove('show');
-          });
-        } else {
-          allSideDivider.forEach(item => item.textContent = item.dataset.text);
-        }
-      });
+      if (toggleSidebar) {
+        toggleSidebar.addEventListener('click', function () {
+          sidebar.classList.toggle('hide');
+          if (sidebar.classList.contains('hide')) {
+            allSideDivider.forEach(item => item.textContent = '-');
+            allDropdown.forEach(item => {
+              const a = item.parentElement.querySelector('a:first-child');
+              a.classList.remove('active');
+              item.classList.remove('show');
+            });
+          } else {
+            allSideDivider.forEach(item => item.textContent = item.dataset.text);
+          }
+        });
+      }
 
       // Hover event
       sidebar.addEventListener('mouseleave', function () {

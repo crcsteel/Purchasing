@@ -5,20 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<title>Purchase Backorder Cost</title>
-  <link rel="icon" type="image/png" href="img/CRC_LogoEN.jpg">
-  <link rel="stylesheet" href="css/style.css">
-
+  	<link rel="icon" href="img/CRC_LogoEN.jpg" type="image/jpeg">
+  	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>	
 	<!-- SIDEBAR -->
-    <div id="sidebar"></div>
+    <div id="sidebar"><p>⏳ Loading sidebar...</p></div>
 	<!-- SIDEBAR -->
 
 	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
 		<nav>
-
 			<form action="#">
 				<div class="form-group">
 					<h1 class="title">Purchase Backorder Cost</h1>
@@ -28,6 +26,8 @@
 			<div class="profile">
 				<img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="Logo">
 			</div>
+			<!-- ปุ่ม toggle sidebar -->
+			<div class="toggle-sidebar"><i class='bx bx-menu'></i></div>
 		</nav>
 		<!-- NAVBAR -->
 
@@ -39,7 +39,7 @@
 						<h3 id="pageTitle">ประมาณการสินค้าค้างรับ</h3>
 					</div>
 					<div class="iframe" style="position:relative;">
-	<!-- Loader -->
+						<!-- Loader -->
 						<div id="iframeLoader" 
 							style="position:absolute;top:0;left:0;width:100%;height:100%;
 							display:flex;align-items:center;justify-content:center;
@@ -62,79 +62,90 @@
   <!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="script/script.js"></script>
-  <script src="script/base.js"></script>
-  <script src="script/inventory.js"></script>
-  <script src="script/inventoryout.js"></script>
-  <script src="script/salesandbase.js"></script>
-  <script src="script/salesdaily.js"></script>
-  <script>    
-    // โหลด sidebar.html ก่อน
-    fetch('page/sidebar.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('sidebar').innerHTML = html;
-        initSidebar(); // เรียกฟังก์ชันตั้งค่า Sidebar หลังโหลดเสร็จ
-      })
-      .catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
+  	<script src="script/base.js"></script>
+  	<script src="script/inventory.js"></script>
+  	<script src="script/inventoryout.js"></script>
+  	<script src="script/salesandbase.js"></script>
+  	<script src="script/salesdaily.js"></script>
+  	<script>    
+	    document.addEventListener("DOMContentLoaded", () => {
+	      // โหลด sidebar.html ก่อน
+	      fetch('page/sidebar.html')
+	        .then(res => res.text())
+	        .then(html => {
+	          document.getElementById('sidebar').innerHTML = html;
+	          initSidebar(); // เรียกฟังก์ชันตั้งค่า Sidebar หลังโหลดเสร็จ
 
-    function initSidebar() {
-      const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
-      const sidebar = document.getElementById('sidebar');
-      const toggleSidebar = document.querySelector('nav .toggle-sidebar');
-      const allSideDivider = document.querySelectorAll('#sidebar .divider');
+	          // จัดการ Loader ของ iframe
+	          const iframe = document.getElementById("reportFrame");
+	          const loader = document.getElementById("iframeLoader");
+	          if (iframe) {
+	            iframe.addEventListener("load", () => {
+	              loader.style.display = "none";
+	            });
+	          }
+	        })
+	        .catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
+	    });
 
-      // ===== Dropdown =====
-      allDropdown.forEach(item => {
-        const a = item.parentElement.querySelector('a:first-child');
-        a.addEventListener('click', function (e) {
-          e.preventDefault();
-          if (!this.classList.contains('active')) {
-            allDropdown.forEach(i => {
-              const aLink = i.parentElement.querySelector('a:first-child');
-              aLink.classList.remove('active');
-              i.classList.remove('show');
-            });
-          }
-          this.classList.toggle('active');
-          item.classList.toggle('show');
-        });
-      });
+	    function initSidebar() {
+	      const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
+	      const sidebar = document.getElementById('sidebar');
+	      const toggleSidebar = document.querySelector('nav .toggle-sidebar');
+	      const allSideDivider = document.querySelectorAll('#sidebar .divider');
 
-      // ===== Collapse =====
-      if (sidebar.classList.contains('hide')) {
-        allSideDivider.forEach(item => item.textContent = '-');
-      } else {
-        allSideDivider.forEach(item => item.textContent = item.dataset.text);
-      }
+	      // ===== Dropdown =====
+	      allDropdown.forEach(item => {
+	        const a = item.parentElement.querySelector('a:first-child');
+	        a.addEventListener('click', function (e) {
+	          e.preventDefault();
+	          if (!this.classList.contains('active')) {
+	            allDropdown.forEach(i => {
+	              const aLink = i.parentElement.querySelector('a:first-child');
+	              aLink.classList.remove('active');
+	              i.classList.remove('show');
+	            });
+	          }
+	          this.classList.toggle('active');
+	          item.classList.toggle('show');
+	        });
+	      });
 
-      toggleSidebar.addEventListener('click', function () {
-        sidebar.classList.toggle('hide');
-        if (sidebar.classList.contains('hide')) {
-          allSideDivider.forEach(item => item.textContent = '-');
-          allDropdown.forEach(item => {
-            const a = item.parentElement.querySelector('a:first-child');
-            a.classList.remove('active');
-            item.classList.remove('show');
-          });
-        } else {
-          allSideDivider.forEach(item => item.textContent = item.dataset.text);
-        }
-      });
+	      // ===== Collapse =====
+	      if (sidebar.classList.contains('hide')) {
+	        allSideDivider.forEach(item => item.textContent = '-');
+	      } else {
+	        allSideDivider.forEach(item => item.textContent = item.dataset.text);
+	      }
 
-      // Hover event
-      sidebar.addEventListener('mouseleave', function () {
-        if (this.classList.contains('hide')) {
-          allSideDivider.forEach(item => item.textContent = '-');
-        }
-      });
-      sidebar.addEventListener('mouseenter', function () {
-        if (this.classList.contains('hide')) {
-          allSideDivider.forEach(item => item.textContent = item.dataset.text);
-        }
-      });
-    }
-  </script>
+	      if (toggleSidebar) {
+	        toggleSidebar.addEventListener('click', function () {
+	          sidebar.classList.toggle('hide');
+	          if (sidebar.classList.contains('hide')) {
+	            allSideDivider.forEach(item => item.textContent = '-');
+	            allDropdown.forEach(item => {
+	              const a = item.parentElement.querySelector('a:first-child');
+	              a.classList.remove('active');
+	              item.classList.remove('show');
+	            });
+	          } else {
+	            allSideDivider.forEach(item => item.textContent = item.dataset.text);
+	          }
+	        });
+	      }
 
-
+	      // Hover event
+	      sidebar.addEventListener('mouseleave', function () {
+	        if (this.classList.contains('hide')) {
+	          allSideDivider.forEach(item => item.textContent = '-');
+	        }
+	      });
+	      sidebar.addEventListener('mouseenter', function () {
+	        if (this.classList.contains('hide')) {
+	          allSideDivider.forEach(item => item.textContent = item.dataset.text);
+	        }
+	      });
+	    }
+  	</script>
 </body>
 </html>

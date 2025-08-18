@@ -6,16 +6,15 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
 	<title>Inventory Out</title>
-  <link rel="icon" type="image/png" href="../img/CRC_LogoEN.jpg">
-  <link rel="stylesheet" href="../css/style.css">
-
+	<link rel="icon" href="img/CRC_LogoEN.jpg" type="image/jpeg">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>	
 	<!-- SIDEBAR -->
-    <div id="sidebar"></div>
+	<div id="sidebar"><p>⏳ Loading sidebar...</p></div>
 	<!-- SIDEBAR -->
 
-	<!-- NAVBAR -->
+	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
 		<nav>
@@ -26,120 +25,127 @@
 			</form>
 			<span class="divider"></span>
 			<div class="profile">
-				<img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="">
-			
+				<img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="Logo">
 			</div>
+			<!-- ปุ่ม toggle sidebar -->
+			<div class="toggle-sidebar"><i class='bx bx-menu'></i></div>
 		</nav>
 		<!-- NAVBAR -->
 
 		<!-- MAIN -->
-  <main>
-    <div class="data">
-      <div class="content-data">
-        <div class="head"><h3>น้ำหนักขายออก(ตัน)</h3></div>
-        <div class="stock-data" id="inventory-out-ton-chart"></div>
-      </div>
-      <div class="content-data">
-        <div class="head"><h3>มูลค่าขายออก(บาท)</h3></div>
-        <div class="chart" id="inventory-out-bath-chart"></div>
-      </div>
-    </div>
+		<main>
+			<div class="data">
+				<div class="content-data">
+					<div class="head"><h3>น้ำหนักขายออก (ตัน)</h3></div>
+					<div class="stock-data" id="inventory-out-ton-chart"></div>
+				</div>
+				<div class="content-data">
+					<div class="head"><h3>มูลค่าขายออก (บาท)</h3></div>
+					<div class="chart" id="inventory-out-bath-chart"></div>
+				</div>
+			</div>
 
-    <div class="data">
-      <div class="content-data">
-        <div class="head"><h3>ขายออก GI (ตัน)</h3></div>
-        <div class="stock-data" id="inventory-out-gi-chart"></div>
-      </div>
-      <div class="content-data">
-        <div class="head"><h3>ขายออก RBDB (ตัน)</h3></div>
-        <div class="chart" id="inventory-out-rbdb-chart"></div>
-      </div>
-    </div>
+			<div class="data">
+				<div class="content-data">
+					<div class="head"><h3>ขายออก GI (ตัน)</h3></div>
+					<div class="stock-data" id="inventory-out-gi-chart"></div>
+				</div>
+				<div class="content-data">
+					<div class="head"><h3>ขายออก RBDB (ตัน)</h3></div>
+					<div class="chart" id="inventory-out-rbdb-chart"></div>
+				</div>
+			</div>
 
-    <div class="data">
-      <div class="content-data">
-        <div class="head"><h3>ขายออก Backsteel (ตัน)</h3></div>
-        <div class="stock-data" id="inventory-out-backsteel-chart"></div>
-      </div>
-    </div>
-  </main>
-
+			<div class="data">
+				<div class="content-data">
+					<div class="head"><h3>ขายออก Backsteel (ตัน)</h3></div>
+					<div class="stock-data" id="inventory-out-backsteel-chart"></div>
+				</div>
+			</div>
+		</main>
 		<!-- MAIN -->
 	</section>
-	<!-- NAVBAR -->
+	<!-- CONTENT -->
 
-  <!-- Scripts -->
+	<!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-	<script src="../script/script.js"></script>
-  <script src="../script/salesandbase.js"></script>
-  <script src="../script/inventoryout.js"></script>
-  <script>    
-    // โหลด sidebar.html ก่อน
-    fetch('../page/sidebar.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('sidebar').innerHTML = html;
-        initSidebar(); // เรียกฟังก์ชันตั้งค่า Sidebar หลังโหลดเสร็จ
-      })
-      .catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
+	<script src="script/script.js"></script>
+	<script src="script/base.js"></script>
+	<script src="script/inventory.js"></script>
+	<script src="script/inventoryout.js"></script>
+	<script src="script/salesandbase.js"></script>
+	<script src="script/salesdaily.js"></script>
 
-    function initSidebar() {
-      const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
-      const sidebar = document.getElementById('sidebar');
-      const toggleSidebar = document.querySelector('nav .toggle-sidebar');
-      const allSideDivider = document.querySelectorAll('#sidebar .divider');
+	<script>    
+		document.addEventListener("DOMContentLoaded", () => {
+			// โหลด sidebar.html
+			fetch('page/sidebar.html')
+				.then(res => res.text())
+				.then(html => {
+					document.getElementById('sidebar').innerHTML = html;
+					initSidebar(); // เรียกฟังก์ชันหลังโหลดเสร็จ
+				})
+				.catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
+		});
 
-      // ===== Dropdown =====
-      allDropdown.forEach(item => {
-        const a = item.parentElement.querySelector('a:first-child');
-        a.addEventListener('click', function (e) {
-          e.preventDefault();
-          if (!this.classList.contains('active')) {
-            allDropdown.forEach(i => {
-              const aLink = i.parentElement.querySelector('a:first-child');
-              aLink.classList.remove('active');
-              i.classList.remove('show');
-            });
-          }
-          this.classList.toggle('active');
-          item.classList.toggle('show');
-        });
-      });
+		function initSidebar() {
+			const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
+			const sidebar = document.getElementById('sidebar');
+			const toggleSidebar = document.querySelector('nav .toggle-sidebar');
+			const allSideDivider = document.querySelectorAll('#sidebar .divider');
 
-      // ===== Collapse =====
-      if (sidebar.classList.contains('hide')) {
-        allSideDivider.forEach(item => item.textContent = '-');
-      } else {
-        allSideDivider.forEach(item => item.textContent = item.dataset.text);
-      }
+			// ===== Dropdown =====
+			allDropdown.forEach(item => {
+				const a = item.parentElement.querySelector('a:first-child');
+				a.addEventListener('click', function (e) {
+					e.preventDefault();
+					if (!this.classList.contains('active')) {
+						allDropdown.forEach(i => {
+							const aLink = i.parentElement.querySelector('a:first-child');
+							aLink.classList.remove('active');
+							i.classList.remove('show');
+						});
+					}
+					this.classList.toggle('active');
+					item.classList.toggle('show');
+				});
+			});
 
-      toggleSidebar.addEventListener('click', function () {
-        sidebar.classList.toggle('hide');
-        if (sidebar.classList.contains('hide')) {
-          allSideDivider.forEach(item => item.textContent = '-');
-          allDropdown.forEach(item => {
-            const a = item.parentElement.querySelector('a:first-child');
-            a.classList.remove('active');
-            item.classList.remove('show');
-          });
-        } else {
-          allSideDivider.forEach(item => item.textContent = item.dataset.text);
-        }
-      });
+			// ===== Collapse =====
+			if (sidebar.classList.contains('hide')) {
+				allSideDivider.forEach(item => item.textContent = '-');
+			} else {
+				allSideDivider.forEach(item => item.textContent = item.dataset.text);
+			}
 
-      // Hover event
-      sidebar.addEventListener('mouseleave', function () {
-        if (this.classList.contains('hide')) {
-          allSideDivider.forEach(item => item.textContent = '-');
-        }
-      });
-      sidebar.addEventListener('mouseenter', function () {
-        if (this.classList.contains('hide')) {
-          allSideDivider.forEach(item => item.textContent = item.dataset.text);
-        }
-      });
-    }
-  </script>
+			if (toggleSidebar) {
+				toggleSidebar.addEventListener('click', function () {
+					sidebar.classList.toggle('hide');
+					if (sidebar.classList.contains('hide')) {
+						allSideDivider.forEach(item => item.textContent = '-');
+						allDropdown.forEach(item => {
+							const a = item.parentElement.querySelector('a:first-child');
+							a.classList.remove('active');
+							item.classList.remove('show');
+						});
+					} else {
+						allSideDivider.forEach(item => item.textContent = item.dataset.text);
+					}
+				});
+			}
 
+			// Hover event
+			sidebar.addEventListener('mouseleave', function () {
+				if (this.classList.contains('hide')) {
+					allSideDivider.forEach(item => item.textContent = '-');
+				}
+			});
+			sidebar.addEventListener('mouseenter', function () {
+				if (this.classList.contains('hide')) {
+					allSideDivider.forEach(item => item.textContent = item.dataset.text);
+				}
+			});
+		}
+	</script>
 </body>
 </html>
