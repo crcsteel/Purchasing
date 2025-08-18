@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
-  <title>Purchase</title>
-  
+	<title>Inventory Out</title>
   <link rel="icon" type="image/png" href="../img/CRC_LogoEN.jpg">
+  <link rel="stylesheet" href="../css/style.css">
 
-  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>	
 	<!-- SIDEBAR -->
     <div id="sidebar"></div>
@@ -23,7 +21,7 @@
 		<nav>
 			<form action="#">
 				<div class="form-group">
-					<h1 class="title">Sales And Base Report</h1>
+					<h1 class="title">Inventory Out Report</h1>
 				</div>
 			</form>
 			<span class="divider"></span>
@@ -35,16 +33,37 @@
 		<!-- NAVBAR -->
 
 		<!-- MAIN -->
-		<main>
-
-      <div class="data">
+  <main>
+    <div class="data">
       <div class="content-data">
-        <div class="head"><h3>เบทราคาเหล็กเส้น</h3></div>
-        <div id="base-rbdb-chart"></div>
+        <div class="head"><h3>น้ำหนักขายออก(ตัน)</h3></div>
+        <div class="stock-data" id="inventory-out-ton-chart"></div>
       </div>
-      </div>  
+      <div class="content-data">
+        <div class="head"><h3>มูลค่าขายออก(บาท)</h3></div>
+        <div class="chart" id="inventory-out-bath-chart"></div>
+      </div>
+    </div>
 
-		</main>
+    <div class="data">
+      <div class="content-data">
+        <div class="head"><h3>ขายออก GI (ตัน)</h3></div>
+        <div class="stock-data" id="inventory-out-gi-chart"></div>
+      </div>
+      <div class="content-data">
+        <div class="head"><h3>ขายออก RBDB (ตัน)</h3></div>
+        <div class="chart" id="inventory-out-rbdb-chart"></div>
+      </div>
+    </div>
+
+    <div class="data">
+      <div class="content-data">
+        <div class="head"><h3>ขายออก Backsteel (ตัน)</h3></div>
+        <div class="stock-data" id="inventory-out-backsteel-chart"></div>
+      </div>
+    </div>
+  </main>
+
 		<!-- MAIN -->
 	</section>
 	<!-- NAVBAR -->
@@ -53,10 +72,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="../script/script.js"></script>
   <script src="../script/salesandbase.js"></script>
-  <script src="../script/base.js"></script>
+  <script src="../script/inventoryout.js"></script>
   <script>    
     // โหลด sidebar.html ก่อน
-    fetch('page/sidebar.html')
+    fetch('../page/sidebar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('sidebar').innerHTML = html;

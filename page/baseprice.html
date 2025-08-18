@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
-  <title>Purchase</title>
+  <title>Pricing Base</title>
   
   <link rel="icon" type="image/png" href="../img/CRC_LogoEN.jpg">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>	
@@ -23,7 +23,7 @@
 		<nav>
 			<form action="#">
 				<div class="form-group">
-					<h1 class="title">Sales And Base Report</h1>
+					<h1 class="title">Pricing Base Report</h1>
 				</div>
 			</form>
 			<span class="divider"></span>
@@ -36,13 +36,68 @@
 
 		<!-- MAIN -->
 		<main>
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็กเส้น/ข้ออ้อย (RB-DB)</h3></div>
+    <div id="base-rbdb-chart"></div>
+  </div>
+</div>
 
-      <div class="data">
-      <div class="content-data">
-        <div class="head"><h3>เบทราคาเหล็กเส้น</h3></div>
-        <div id="base-rbdb-chart"></div>
-      </div>
-      </div>  
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็กท่อ (GI)</h3></div>
+    <div id="base-gi-chart"></div>
+  </div>
+</div>
+
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็กท่อ (เหล็กดำ)</h3></div>
+    <div id="base-backsteel-chart"></div>
+  </div>
+</div>
+
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็ก C-Channel</h3></div>
+    <div id="base-c-chart"></div>
+  </div>
+</div>
+
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็กแบนตัด</h3></div>
+    <div id="flat-bar-chart"></div>
+  </div>
+</div>
+
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาไวร์เมช</h3></div>
+    <div id="wire-mesh-chart"></div>
+  </div>
+</div>
+
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็กฉาก</h3></div>
+    <div id="angle-bar-chart"></div>
+  </div>
+</div>
+
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็กรางน้ำ</h3></div>
+    <div id="channel-bar-chart"></div>
+  </div>
+</div>
+
+<div class="data">
+  <div class="content-data">
+    <div class="head"><h3>เบทราคาเหล็กบีม (I-Beam)</h3></div>
+    <div id="ibeam-chart"></div>
+  </div>
+</div>
 
 		</main>
 		<!-- MAIN -->
@@ -56,7 +111,7 @@
   <script src="../script/base.js"></script>
   <script>    
     // โหลด sidebar.html ก่อน
-    fetch('page/sidebar.html')
+    fetch('../page/sidebar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('sidebar').innerHTML = html;

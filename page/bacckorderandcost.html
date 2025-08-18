@@ -1,62 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-
-  <title>Purchase</title>
-  
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<title>Purchase Backorder Cost</title>
   <link rel="icon" type="image/png" href="../img/CRC_LogoEN.jpg">
-
-  <link rel="stylesheet" href="css/style.css">
+	<!-- ปรับ path ให้ตรงกับโฟลเดอร์จริง -->
+	<link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body>	
 	<!-- SIDEBAR -->
     <div id="sidebar"></div>
 	<!-- SIDEBAR -->
 
-	<!-- NAVBAR -->
+	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
 		<nav>
+
 			<form action="#">
 				<div class="form-group">
-					<h1 class="title">Sales And Base Report</h1>
+					<h1 class="title">Purchase Backorder Cost</h1>
 				</div>
 			</form>
 			<span class="divider"></span>
 			<div class="profile">
-				<img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="">
-			
+				<img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="Logo">
 			</div>
 		</nav>
 		<!-- NAVBAR -->
 
 		<!-- MAIN -->
 		<main>
+            <div class="data">
+				<div class="content-data">
+					<div class="head">
+						<h3 id="pageTitle">ประมาณการสินค้าค้างรับ</h3>
+					</div>
+					<div class="iframe" style="position:relative;">
+	<!-- Loader -->
+						<div id="iframeLoader" 
+							style="position:absolute;top:0;left:0;width:100%;height:100%;
+							display:flex;align-items:center;justify-content:center;
+							background:#fff;z-index:10;">
+							<p>⏳ กำลังโหลด...</p>
+						</div>
 
-      <div class="data">
-      <div class="content-data">
-        <div class="head"><h3>เบทราคาเหล็กเส้น</h3></div>
-        <div id="base-rbdb-chart"></div>
-      </div>
-      </div>  
-
+						<!-- iframe -->
+						<iframe id="reportFrame"
+							src="https://script.google.com/macros/s/AKfycby8kBoODGeRy57P4HbQC0VheqJWQ8y1XE_pSvzdg4BeSmHEG0f6seT5eBM8bawFxNrS/exec" 
+							width="100%" height="650px" frameborder="0"></iframe>
+					</div>
+				</div>
+            </div>
 		</main>
 		<!-- MAIN -->
 	</section>
-	<!-- NAVBAR -->
+	<!-- CONTENT -->
 
-  <!-- Scripts -->
+	<!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="../script/script.js"></script>
-  <script src="../script/salesandbase.js"></script>
-  <script src="../script/base.js"></script>
-  <script>    
+	<script src="../script/salesdaily.js"></script>
+
+  <script>   
+    const iframe = document.getElementById("reportFrame");
+	const loader = document.getElementById("iframeLoader");
+
+	iframe.onload = function() {
+		loader.style.display = "none"; // ✅ ซ่อน Loader เมื่อ iframe โหลดเสร็จ
+	};
+ 
     // โหลด sidebar.html ก่อน
-    fetch('page/sidebar.html')
+    fetch('../page/sidebar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('sidebar').innerHTML = html;
@@ -121,6 +138,7 @@
       });
     }
   </script>
+
 
 </body>
 </html>

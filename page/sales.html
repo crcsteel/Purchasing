@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+	<title>Sales Daily</title>
+  <link rel="icon" type="image/png" href="../img/CRC_LogoEN.jpg">
+  <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>	
+	<!-- SIDEBAR -->
+    <div id="sidebar"></div>
+	<!-- SIDEBAR -->
+
+	<!-- NAVBAR -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<form action="#">
+				<div class="form-group">
+					<h1 class="title">Sales Daily Report</h1>
+				</div>
+			</form>
+			<span class="divider"></span>
+			<div class="profile">
+				<img src="https://crcsteel.co.th/upload-img/CRC_steel/logo_CRC_vdo-01_1665974907.png" alt="">
+			
+			</div>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<ul class="breadcrumbs">
+				<li><a href="#" >Home</a></li>
+				<li class="divider">/</li>
+				<li><a href="#" class="active">Dashboard</a></li>
+			</ul>
+			<div class="info-data" id="dashboard-cards">
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>กำลังโหลด...</h2>
+							<p>สุรินทร์</p>
+              <div style="display: flex; align-items: center;">
+                <p style="margin: 0;">Target</p>
+                <p style="margin: 0; margin-left: 10px;"></p>
+              </div>
+						</div>
+						
+					</div>
+					<span class="progress" data-value="0%"></span>
+					<span class="label">0%</span>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>กำลังโหลด...</h2>
+							<p>นางรอง</p>
+              <div style="display: flex; align-items: center;">
+                <p style="margin: 0;">Target</p>
+                <p style="margin: 0; margin-left: 10px;"></p>
+              </div>
+						</div>
+						
+					</div>
+					<span class="progress" data-value="0%"></span>
+					<span class="label">0%</span>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>กำลังโหลด...</h2>
+							<p>เดชอุดม</p>
+              <div style="display: flex; align-items: center;">
+                <p style="margin: 0;">Target</p>
+                <p style="margin: 0; margin-left: 10px;"></p>
+              </div>
+						</div>
+						
+					</div>
+					<span class="progress" data-value="0%"></span>
+					<span class="label">0%</span>
+				</div>
+				<div class="card">
+					<div class="head">
+						<div>
+							<h2>กำลังโหลด...</h2>
+							<p>รวม 3 สาขา</p>
+              <div style="display: flex; align-items: center;">
+                <p style="margin: 0;">Target</p>
+                <p style="margin: 0; margin-left: 10px;"></p>
+              </div>
+						</div>
+						
+					</div>
+					<span class="progress" data-value="0%"></span>
+					<span class="label">0%</span>
+				</div>
+			</div>
+			<div class="data">
+				<div class="content-data">
+					<div class="head">
+						<h3>Sales Daily</h3>
+					</div>
+					<div class="chart">
+						<div id="sales-chart1"></div>
+					</div>
+				</div>
+				<div class="content-data">
+          <div class="head">
+            <h3>Latest Sales</h3>
+          </div>
+          <div class="table-responsive"style="width: 100%; height: 400px; overflow: auto;">
+            <div class="container">
+                <div class="row">
+                  <table class="striped centered responsive-table">
+                    <thead>
+                      <tr>
+                        <th>วันที่</th>
+                        <th>สุรินทร์</th>
+                        <th>นางรอง</th>
+                        <th>เดชอุดม</th>
+                        <th>รวม 3 สาขา</th>
+                        <th>หมายเหตุ</th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="table-body">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+        </div>
+	</div>
+
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- NAVBAR -->
+
+
+  <!-- Scripts -->
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="../script/script.js"></script>
+  <script src="../script/salesdaily.js"></script>
+  <script>    
+    // โหลด sidebar.html ก่อน
+    fetch('../page/sidebar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('sidebar').innerHTML = html;
+        initSidebar(); // เรียกฟังก์ชันตั้งค่า Sidebar หลังโหลดเสร็จ
+      })
+      .catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
+
+    function initSidebar() {
+      const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
+      const sidebar = document.getElementById('sidebar');
+      const toggleSidebar = document.querySelector('nav .toggle-sidebar');
+      const allSideDivider = document.querySelectorAll('#sidebar .divider');
+
+      // ===== Dropdown =====
+      allDropdown.forEach(item => {
+        const a = item.parentElement.querySelector('a:first-child');
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (!this.classList.contains('active')) {
+            allDropdown.forEach(i => {
+              const aLink = i.parentElement.querySelector('a:first-child');
+              aLink.classList.remove('active');
+              i.classList.remove('show');
+            });
+          }
+          this.classList.toggle('active');
+          item.classList.toggle('show');
+        });
+      });
+
+      // ===== Collapse =====
+      if (sidebar.classList.contains('hide')) {
+        allSideDivider.forEach(item => item.textContent = '-');
+      } else {
+        allSideDivider.forEach(item => item.textContent = item.dataset.text);
+      }
+
+      toggleSidebar.addEventListener('click', function () {
+        sidebar.classList.toggle('hide');
+        if (sidebar.classList.contains('hide')) {
+          allSideDivider.forEach(item => item.textContent = '-');
+          allDropdown.forEach(item => {
+            const a = item.parentElement.querySelector('a:first-child');
+            a.classList.remove('active');
+            item.classList.remove('show');
+          });
+        } else {
+          allSideDivider.forEach(item => item.textContent = item.dataset.text);
+        }
+      });
+
+      // Hover event
+      sidebar.addEventListener('mouseleave', function () {
+        if (this.classList.contains('hide')) {
+          allSideDivider.forEach(item => item.textContent = '-');
+        }
+      });
+      sidebar.addEventListener('mouseenter', function () {
+        if (this.classList.contains('hide')) {
+          allSideDivider.forEach(item => item.textContent = item.dataset.text);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

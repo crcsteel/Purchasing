@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
-  <title>Purchase</title>
-  
+	<title>Inventory Report</title>
   <link rel="icon" type="image/png" href="../img/CRC_LogoEN.jpg">
+  <link rel="stylesheet" href="../css/style.css">
 
-  <link rel="stylesheet" href="css/style.css">
+
 </head>
-
 <body>	
 	<!-- SIDEBAR -->
     <div id="sidebar"></div>
 	<!-- SIDEBAR -->
-
-	<!-- NAVBAR -->
+	<!-- CONTENT -->
 	<section id="content">
 		<!-- NAVBAR -->
 		<nav>
 			<form action="#">
 				<div class="form-group">
-					<h1 class="title">Sales And Base Report</h1>
+					<h1 class="title">Inventory Report</h1>
 				</div>
 			</form>
 			<span class="divider"></span>
@@ -32,31 +30,79 @@
 			
 			</div>
 		</nav>
-		<!-- NAVBAR -->
 
 		<!-- MAIN -->
 		<main>
+			<ul class="breadcrumbs">
+				<li><a href="#">Home</a></li>
+				<li class="divider">/</li>
+				<li><a href="#" class="active">Dashboard</a></li>
+			</ul>
+
+			<div class="data">
+				<div class="content-data">
+					<div class="head"><h3>มูลค่าสต๊อกคงคลัง (ล้านบาท)</h3></div>
+					<div class="chart" id="inventory-chart"></div>
+				</div>
+				<div class="content-data">
+					<div class="head"><h3>มูลค่าการสั่งซื้อ (ล้านบาท)</h3></div>
+					<div class="chart" id="po-chart"></div>
+				</div>
+			</div>
+
+			<div class="data">
+				<div class="content-data">
+					<div class="head"><h3>สต๊อกคงคลัง (ตัน)</h3></div>
+					<div class="chart" id="group-bar-chart"></div>
+				</div>
+			</div>
 
       <div class="data">
-      <div class="content-data">
-        <div class="head"><h3>เบทราคาเหล็กเส้น</h3></div>
-        <div id="base-rbdb-chart"></div>
-      </div>
-      </div>  
+        <div class="content-data">
+          <div class="head"><h3>สต๊อกคงคลัง (มูลค่า/บาท)</h3></div>
+          <div class="stock-data">
+            <table id="table-stock-value"></table>
+          </div>
+        </div>
 
+        <div class="content-data">
+          <div class="head"><h3>สต๊อกคงคลัง (น้ำหนัก/ตัน)</h3></div>
+          <div class="stock-data">
+            <table id="table-stock-weight"></table>
+          </div>
+        </div>
+
+        <div class="content-data">
+          <div class="head"><h3>สต๊อกค้างรับ (มูลค่า/บาท)</h3></div>
+          <div class="stock-data">
+            <table id="table-stock-pending"></table>
+          </div>
+        </div>
+      </div>
+
+			<div class="data">
+        <div class="content-data">
+          <div class="head"><h3>เบทราคา (บาท/กก.)</h3></div>
+          <div class="stock-data">
+            <table id="table-base-price"></table>
+          </div>
+        </div>
+
+				<div class="content-data">
+					<div class="head"><h3>สต๊อกคงคลัง (น้ำหนัก/ตัน)</h3></div>
+					<div class="chart" id="stock-chart"></div>
+				</div>
+			</div>
 		</main>
-		<!-- MAIN -->
 	</section>
-	<!-- NAVBAR -->
 
   <!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="../script/script.js"></script>
-  <script src="../script/salesandbase.js"></script>
-  <script src="../script/base.js"></script>
+  	<script src="../script/Inventory.js"></script>
   <script>    
     // โหลด sidebar.html ก่อน
-    fetch('page/sidebar.html')
+    fetch('../page/sidebar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('sidebar').innerHTML = html;
@@ -121,6 +167,5 @@
       });
     }
   </script>
-
 </body>
 </html>
