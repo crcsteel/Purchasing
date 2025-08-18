@@ -6,8 +6,8 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
 	<title>Inventory Report</title>
-  	<link rel="icon" href="img/CRC_LogoEN.jpg" type="image/jpeg">
-<link rel="stylesheet" href="/steel-dashboard/css/style.css">
+  	<link rel="icon" href="../img/CRC_LogoEN.jpg" type="image/jpeg">
+	<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>	
 	<!-- SIDEBAR -->
@@ -34,7 +34,7 @@
 		<!-- MAIN -->
 		<main>
 			<ul class="breadcrumbs">
-				<li><a href="#">Home</a></li>
+				<li><a href="../index.html">Home</a></li>
 				<li class="divider">/</li>
 				<li><a href="#" class="active">Dashboard</a></li>
 			</ul>
@@ -97,17 +97,17 @@
 	</section>
 
 <!-- JavaScript -->
-<script src="/steel-dashboard/script/script.js"></script>
-<script src="/steel-dashboard/script/base.js"></script>
-<script src="/steel-dashboard/script/inventory.js"></script>
-<script src="/steel-dashboard/script/inventoryout.js"></script>
-<script src="/steel-dashboard/script/salesandbase.js"></script>
-<script src="/steel-dashboard/script/salesdaily.js"></script>
+<script src="../script/script.js"></script>
+<script src="../script/base.js"></script>
+<script src="../script/inventory.js"></script>
+<script src="../script/inventoryout.js"></script>
+<script src="../script/salesandbase.js"></script>
+<script src="../script/salesdaily.js"></script>
 
   	<script>    
     	document.addEventListener("DOMContentLoaded", () => {
-      		// โหลด sidebar.html ก่อน
-      		fetch('page/sidebar.html')
+      		// โหลด sidebar.html (relative path)
+      		fetch('sidebar.html')
         		.then(res => res.text())
         		.then(html => {
           			document.getElementById('sidebar').innerHTML = html;
@@ -115,65 +115,6 @@
         		})
         		.catch(err => console.error('โหลด Sidebar ไม่ได้:', err));
     	});
-
-    	function initSidebar() {
-      		const allDropdown = document.querySelectorAll('#sidebar .side-dropdown');
-      		const sidebar = document.getElementById('sidebar');
-      		const toggleSidebar = document.querySelector('nav .toggle-sidebar');
-      		const allSideDivider = document.querySelectorAll('#sidebar .divider');
-
-      		// ===== Dropdown =====
-      		allDropdown.forEach(item => {
-        		const a = item.parentElement.querySelector('a:first-child');
-        		a.addEventListener('click', function (e) {
-          			e.preventDefault();
-          			if (!this.classList.contains('active')) {
-            			allDropdown.forEach(i => {
-              				const aLink = i.parentElement.querySelector('a:first-child');
-              				aLink.classList.remove('active');
-              				i.classList.remove('show');
-            			});
-          			}
-          			this.classList.toggle('active');
-          			item.classList.toggle('show');
-        		});
-      		});
-
-      		// ===== Collapse =====
-      		if (sidebar.classList.contains('hide')) {
-        		allSideDivider.forEach(item => item.textContent = '-');
-      		} else {
-        		allSideDivider.forEach(item => item.textContent = item.dataset.text);
-      		}
-
-      		if (toggleSidebar) {
-        		toggleSidebar.addEventListener('click', function () {
-          			sidebar.classList.toggle('hide');
-          			if (sidebar.classList.contains('hide')) {
-            			allSideDivider.forEach(item => item.textContent = '-');
-            			allDropdown.forEach(item => {
-              				const a = item.parentElement.querySelector('a:first-child');
-              				a.classList.remove('active');
-              				item.classList.remove('show');
-            			});
-          			} else {
-            			allSideDivider.forEach(item => item.textContent = item.dataset.text);
-          			}
-        		});
-      		}
-
-      		// Hover event
-      		sidebar.addEventListener('mouseleave', function () {
-        		if (this.classList.contains('hide')) {
-          			allSideDivider.forEach(item => item.textContent = '-');
-        		}
-      		});
-      		sidebar.addEventListener('mouseenter', function () {
-        		if (this.classList.contains('hide')) {
-          			allSideDivider.forEach(item => item.textContent = item.dataset.text);
-        		}
-      		});
-    	}
   	</script>
 </body>
 </html>
